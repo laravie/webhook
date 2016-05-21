@@ -2,6 +2,8 @@
 
 namespace Laravie\Webhook;
 
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\MessageFactoryDiscovery;
 use Http\Client\Common\HttpMethodsClient as HttpClient;
 
 class Client
@@ -14,6 +16,21 @@ class Client
     public function __construct(HttpClient $client)
     {
         $this->client = $client;
+    }
+
+    /**
+     * Make a client.
+     *
+     * @return $this
+     */
+    public static function make()
+    {
+        $client = new HttpClient(
+            HttpClientDiscovery::find(),
+            MessageFactoryDiscovery::find()
+        );
+
+        return new static($client);
     }
 
     /**
