@@ -29,7 +29,7 @@ class WebhookServiceProvider extends ServiceProvider
                 MessageFactoryDiscovery::find()
             );
 
-            return Client();
+            return Client($client);
         });
     }
 }
