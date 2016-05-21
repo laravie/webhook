@@ -1,6 +1,6 @@
 {
     "name": "laravie/webhook",
-    "description": "Webhook For Laravel",
+    "description": "Webhook Client for PHP",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -19,7 +19,6 @@
         "php-http/httplug": "~1.0",
         "php-http/client-common": "^1.1",
         "php-http/client-implementation": "^1.0",
-        "illuminate/support": "~5.1",
         "php-http/discovery": "^0.8.0"
     },
     "require-dev": {
@@ -29,6 +28,6 @@
         "branch-alias": {
             "dev-master": "1.0-dev"
         }
-    }
+    },
     "minimum-stability": "dev"
 }

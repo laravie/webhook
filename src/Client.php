@@ -2,7 +2,7 @@
 
 namespace Laravie\Webhook;
 
-use Http\Client\HttpClient;
+use Http\Client\Common\HttpMethodsClient as HttpClient;
 
 class Client
 {
@@ -21,12 +21,12 @@ class Client
      *
      * @param  string  $method
      * @param  string  $uri
-     * @param  array  $data
+     * @param  mixed  $data
      * @param  array  $headers
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function send($method, $uri, array $data = [], array $headers = [])
+    public function send($method, $uri, $data = [], array $headers = [])
     {
         $body = json_encode($data);
 
