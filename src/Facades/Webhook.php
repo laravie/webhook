@@ -1,5 +1,4 @@
 <?php
-
 namespace Laravie\Webhook\Facades;
 
 use Illuminate\Support\Facades\Facade;
