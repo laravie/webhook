@@ -45,8 +45,8 @@ class Client
      */
     public function send($method, $uri, $data = [], array $headers = [])
     {
-        $body    = $this->prepareRequestBody($data);
         $headers = $this->prepareRequestHeaders($headers);
+        $body    = $this->prepareRequestBody($data, $headers);
 
         return $this->client->send(strtoupper($method), $uri, $headers, $body);
     }
@@ -123,13 +123,18 @@ class Client
     /**
      * Prepare request body.
      *
-     * @param  mixed  $data
+     * @param  mixed  $body
+     * @param  array  $headers
      *
      * @return string
      */
-    protected function prepareRequestBody($data = [])
+    protected function prepareRequestBody($body = [], array $headers = [])
     {
-        return json_encode($data);
+        if ($headers['Content-Type'] == 'application/json') {
+            return json_encode($body);
+        }
+
+        return http_build_query($data, null, '&');
     }
 
     /**
