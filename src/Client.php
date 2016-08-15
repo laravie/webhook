@@ -130,7 +130,7 @@ class Client
      */
     protected function prepareRequestBody($body = [], array $headers = [])
     {
-        if ($headers['Content-Type'] == 'application/json') {
+        if (isset($headers['Content-Type']) && $headers['Content-Type'] == 'application/json') {
             return json_encode($body);
         }
 
