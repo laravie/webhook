@@ -2,6 +2,7 @@
 
 namespace Laravie\Webhook;
 
+use Psr\Http\Message\StreamInterface;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Client\Common\HttpMethodsClient as HttpClient;
@@ -38,7 +39,7 @@ class Client
      *
      * @param  string  $method
      * @param  \Psr\Http\Message\UriInterface|string  $uri
-     * @param  mixed  $data
+     * @param  mixed  $body
      * @param  array  $headers
      *
      * @return \Psr\Http\Message\ResponseInterface
@@ -46,7 +47,7 @@ class Client
     public function send($method, $uri, $data = [], array $headers = [])
     {
         $headers = $this->prepareRequestHeaders($headers);
-        $body    = $this->prepareRequestBody($data, $headers);
+        list($headers, $body) = $this->prepareRequestPayloads($headers, $body);
 
         return $this->client->send(strtoupper($method), $uri, $headers, $body);
     }
@@ -121,23 +122,6 @@ class Client
     }
 
     /**
-     * Prepare request body.
-     *
-     * @param  mixed  $body
-     * @param  array  $headers
-     *
-     * @return string
-     */
-    protected function prepareRequestBody($body = [], array $headers = [])
-    {
-        if (isset($headers['Content-Type']) && $headers['Content-Type'] == 'application/json') {
-            return json_encode($body);
-        }
-
-        return http_build_query($data, null, '&');
-    }
-
-    /**
      * Prepare request headers.
      *
      * @param  array  $headers
@@ -149,5 +133,26 @@ class Client
         $headers['Content-Type'] = 'application/json';
 
         return $headers;
+    }
+
+    /**
+     * Prepare request body.
+     *
+     * @param  array  $headers
+     * @param  mixed  $body
+     *
+     * @return array
+     */
+    protected function prepareRequestPayloads(array $headers = [], $body = [])
+    {
+        if ($body instanceof StreamInterface) {
+            return [$headers, $body];
+        }
+
+        if (isset($headers['Content-Type']) && $headers['Content-Type'] == 'application/json') {
+            return [$headers, json_encode($body)];
+        }
+
+        return [$headers, http_build_query($body, null, '&')];
     }
 }
