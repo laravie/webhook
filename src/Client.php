@@ -145,14 +145,12 @@ class Client
      */
     protected function prepareRequestPayloads(array $headers = [], $body = [])
     {
-        if ($body instanceof StreamInterface) {
-            return [$headers, $body];
-        }
-
         if (isset($headers['Content-Type']) && $headers['Content-Type'] == 'application/json') {
-            return [$headers, json_encode($body)];
+            $body = json_encode($body);
+        } elseif (! $body instanceof StreamInterface) {
+            $body = http_build_query($body, null, '&');
         }
 
-        return [$headers, http_build_query($body, null, '&')];
+        return [$headers, $body];
     }
 }
