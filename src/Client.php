@@ -10,13 +10,20 @@ use Http\Client\Common\HttpMethodsClient as HttpClient;
 class Client
 {
     /**
+     * Http Client instance.
+     *
+     * @var \Http\Client\Common\HttpMethodsClient
+     */
+    protected $http;
+
+    /**
      * Construct a new client.
      *
-     * @param \Http\Client\HttpClient  $client
+     * @param \Http\Client\HttpClient  $http
      */
-    public function __construct(HttpClient $client)
+    public function __construct(HttpClient $http)
     {
-        $this->client = $client;
+        $this->http = $http;
     }
 
     /**
@@ -26,12 +33,12 @@ class Client
      */
     public static function make()
     {
-        $client = new HttpClient(
+        $http = new HttpClient(
             HttpClientDiscovery::find(),
             MessageFactoryDiscovery::find()
         );
 
-        return new static($client);
+        return new static($http);
     }
 
     /**
@@ -46,10 +53,9 @@ class Client
      */
     public function send($method, $uri, $data = [], array $headers = [])
     {
-        $headers = $this->prepareRequestHeaders($headers);
         list($headers, $body) = $this->prepareRequestPayloads($headers, $body);
 
-        return $this->client->send(strtoupper($method), $uri, $headers, $body);
+        return $this->http->send(strtoupper($method), $uri, $headers, $body);
     }
 
     /**
@@ -145,9 +151,15 @@ class Client
      */
     protected function prepareRequestPayloads(array $headers = [], $body = [])
     {
+        $headers = $this->prepareRequestHeaders($headers);
+
+        if ($body instanceof StreamInterface) {
+            return [$headers, $body];
+        }
+
         if (isset($headers['Content-Type']) && $headers['Content-Type'] == 'application/json') {
             $body = json_encode($body);
-        } elseif (! $body instanceof StreamInterface) {
+        } elseif (is_array($body)) {
             $body = http_build_query($body, null, '&');
         }
 
