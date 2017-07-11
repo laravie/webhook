@@ -53,7 +53,7 @@ class Client
      */
     public function send($method, $uri, $data = [], array $headers = [])
     {
-        list($headers, $body) = $this->prepareRequestPayloads($headers, $body);
+        list($headers, $body) = $this->prepareRequestPayloads($headers, $data);
 
         return $this->http->send(strtoupper($method), $uri, $headers, $body);
     }
