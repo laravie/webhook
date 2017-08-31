@@ -44,19 +44,19 @@ class Client
      * Ping an endpoint.
      *
      * @param  string  $method
-     * @param  \Laravie\Codex\Endpoint|string  $endpoint
+     * @param  \Laravie\Codex\Endpoint|string  $path
      * @param  array  $headers
      * @param  Psr\Http\Message\StreamInterface|array  $body
      *
      * @return \Laravie\Codex\Contracts\Response
      */
-    public function send($method, $uri, array $headers = [], $body = [])
+    public function send($method, $path, array $headers = [], $body = [])
     {
         list($headers, $body) = $this->prepareRequestPayloads($headers, $body);
 
         $method = strtoupper($method);
 
-        $endpoint = $this->convertUriToEndpoint($uri);
+        $endpoint = $this->convertUriToEndpoint($path);
 
         if ($method === 'GET' && ! $body instanceof StreamInterface) {
             $endpoint->addQuery($body);
