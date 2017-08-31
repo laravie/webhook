@@ -2,13 +2,17 @@
 
 namespace Laravie\Webhook;
 
+use Laravie\Codex\Response;
+use Laravie\Codex\Discovery;
+use Laravie\Codex\Support\Resources;
 use Psr\Http\Message\StreamInterface;
-use Http\Discovery\HttpClientDiscovery;
-use Http\Discovery\MessageFactoryDiscovery;
+use Psr\Http\Message\ResponseInterface;
 use Http\Client\Common\HttpMethodsClient as HttpClient;
 
 class Client
 {
+    use Resources;
+
     /**
      * Http Client instance.
      *
@@ -19,7 +23,7 @@ class Client
     /**
      * Construct a new client.
      *
-     * @param \Http\Client\HttpClient  $http
+     * @param \Http\Client\Common\HttpMethodsClient  $http
      */
     public function __construct(HttpClient $http)
     {
@@ -33,98 +37,35 @@ class Client
      */
     public static function make()
     {
-        $http = new HttpClient(
-            HttpClientDiscovery::find(),
-            MessageFactoryDiscovery::find()
-        );
-
-        return new static($http);
+        return new static(Discovery::client());
     }
 
     /**
      * Ping an endpoint.
      *
      * @param  string  $method
-     * @param  \Psr\Http\Message\UriInterface|string  $uri
-     * @param  mixed  $body
+     * @param  \Laravie\Codex\Endpoint|string  $endpoint
      * @param  array  $headers
+     * @param  Psr\Http\Message\StreamInterface|array  $body
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return \Laravie\Codex\Contracts\Response
      */
-    public function send($method, $uri, $data = [], array $headers = [])
+    public function send($method, $uri, array $headers = [], $body = [])
     {
-        list($headers, $body) = $this->prepareRequestPayloads($headers, $data);
+        list($headers, $body) = $this->prepareRequestPayloads($headers, $body);
 
-        return $this->http->send(strtoupper($method), $uri, $headers, $body);
-    }
+        $method = strtoupper($method);
 
-    /**
-     * Sends a GET request.
-     *
-     * @param  \Psr\Http\Message\UriInterface|string  $uri
-     * @param  array  $headers
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function get($uri, array $headers = [])
-    {
-        return $this->send('GET', $uri, $headers);
-    }
+        $endpoint = $this->convertUriToEndpoint($uri);
 
-    /**
-     * Sends a POST request.
-     *
-     * @param  \Psr\Http\Message\UriInterface|string  $uri
-     * @param  mixed  $data
-     * @param  array  $headers
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function post($uri, $data = [], array $headers = [])
-    {
-        return $this->send('POST', $uri, $data, $headers);
-    }
+        if ($method === 'GET' && ! $body instanceof StreamInterface) {
+            $endpoint->addQuery($body);
+            $body = [];
+        }
 
-    /**
-     * Sends a PUT request.
-     *
-     * @param  \Psr\Http\Message\UriInterface|string  $uri
-     * @param  mixed  $data
-     * @param  array  $headers
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function put($uri, $data = [], array $headers = [])
-    {
-        return $this->send('PUT', $uri, $data, $headers);
-    }
-
-    /**
-     * Sends a PATCH request.
-     *
-     * @param  \Psr\Http\Message\UriInterface|string  $uri
-     * @param  mixed  $data
-     * @param  array  $headers
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function patch($uri, $data = [], array $headers = [])
-    {
-        return $this->send('PATCH', $uri, $data, $headers);
-    }
-
-    /**
-     * Sends a DELETE request.
-     *
-     * @param  \Psr\Http\Message\UriInterface|string  $uri
-     * @param  mixed  $data
-     * @param  array  $headers
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function delete($uri, $data = [], array $headers = [])
-    {
-        return $this->send('DELETE', $uri, $data, $headers);
+        return $this->responseWith(
+            $this->http->send($method, $endpoint->get(), $headers, $body)
+        );
     }
 
     /**
@@ -142,10 +83,37 @@ class Client
     }
 
     /**
+     * Resolve the responder class.
+     *
+     * @param  \Psr\Http\Message\ResponseInterface  $response
+     *
+     * @return \Laravie\Codex\Contracts\Response
+     */
+    protected function responseWith(ResponseInterface $response)
+    {
+        return new Response($response);
+    }
+
+    /**
+     * Convert URI to Endpoint object.
+     *
+     * @param  \Laravie\Codex\Endpoint|string  $uri
+     * @return \Laravie\Codex\Endpoint
+     */
+    protected function convertUriToEndpoint($uri)
+    {
+        if ($uri instanceof Endpoint) {
+            return $uri;
+        }
+
+        return new Endpoint($uri);
+    }
+
+    /**
      * Prepare request body.
      *
      * @param  array  $headers
-     * @param  mixed  $body
+     * @param  \Psr\Http\Message\StreamInterface|array  $body
      *
      * @return array
      */
