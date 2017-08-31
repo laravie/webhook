@@ -17,7 +17,7 @@
     },
     "require": {
         "php": ">=5.5",
-        "laravie/codex": "^1.0"
+        "laravie/request": "^1.0"
     },
     "require-dev": {
         "php-http/curl-client": "^1.1"
