@@ -2,7 +2,6 @@
 
 namespace Laravie\Webhook;
 
-use Psr\Http\Message\ResponseInterface;
 use Laravie\Codex\Request as BaseRequest;
 use Laravie\Codex\Contracts\Response as ResponseContract;
 

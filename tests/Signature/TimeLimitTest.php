@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravie\Webhook\Signature;
+namespace Laravie\Webhook\Tests\Signature;
 
 use PHPUnit\Framework\TestCase;
 use Laravie\Webhook\Signature\TimeLimit;
