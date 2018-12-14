@@ -28,16 +28,6 @@ class Client
     }
 
     /**
-     * Make a client.
-     *
-     * @return $this
-     */
-    public static function make()
-    {
-        return new static(Discovery::client());
-    }
-
-    /**
      * Set Content-Type value for webhook request.
      *
      * @param  string  $contentType
