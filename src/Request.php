@@ -6,6 +6,7 @@ use Laravie\Codex\Endpoint;
 use Laravie\Codex\Response;
 use Laravie\Codex\Support\Responsable;
 use Psr\Http\Message\ResponseInterface;
+use Laravie\Codex\Contracts\Client as ClientContract;
 use Laravie\Codex\Contracts\Request as RequestContract;
 use Laravie\Codex\Contracts\Endpoint as EndpointContract;
 use Laravie\Codex\Contracts\Response as ResponseContract;
@@ -42,12 +43,11 @@ abstract class Request implements RequestContract
      *
      * @return $this
      */
-    final public function setClient(Client $client): self
+    final public function setClient(ClientContract $client): self
     {
         $this->client = $client;
 
         return $this;
-
     }
 
     /**
