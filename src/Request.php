@@ -15,6 +15,13 @@ abstract class Request implements RequestContract
     use Responsable;
 
     /**
+     * The Codex client.
+     *
+     * @var \Laravie\Codex\Contracts\Client
+     */
+    protected $client;
+
+    /**
      * Create Endpoint instance.
      *
      * @param  string $uri
@@ -26,6 +33,21 @@ abstract class Request implements RequestContract
     public static function to(string $uri, $path = [], array $query = []): EndpointContract
     {
         return new Endpoint($uri, $path, $query);
+    }
+
+    /**
+     * Set Codex Client.
+     *
+     * @param  \Laravie\Codex\Contracts\Client  $client
+     *
+     * @return $this
+     */
+    final public function setClient(Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+
     }
 
     /**
