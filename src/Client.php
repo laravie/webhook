@@ -2,7 +2,6 @@
 
 namespace Laravie\Webhook;
 
-use Laravie\Codex\Discovery;
 use Laravie\Codex\Support\HttpClient;
 use Http\Client\Common\HttpMethodsClient;
 use Laravie\Codex\Contracts\Client as ClientContract;
