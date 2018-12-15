@@ -13,8 +13,6 @@ use Laravie\Codex\Contracts\Response as ResponseContract;
 
 abstract class Request implements RequestContract
 {
-    use Responsable;
-
     /**
      * The Codex client.
      *
@@ -63,7 +61,7 @@ abstract class Request implements RequestContract
     {
         $endpoint = $url instanceof EndpointContract ? $url : static::to($url);
 
-        return $this->interactsWithResponse(
+        return $this->responseWith(
             $this->client->send('POST', $endpoint, $headers, $body)
         );
     }
