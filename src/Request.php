@@ -2,11 +2,15 @@
 
 namespace Laravie\Webhook;
 
+use Laravie\Codex\Support\Responsable;
 use Laravie\Codex\Request as BaseRequest;
+use Laravie\Codex\Contracts\Request as RequestContract;
 use Laravie\Codex\Contracts\Response as ResponseContract;
 
-abstract class Request extends BaseRequest
+abstract class Request implements RequestContract
 {
+    use Responsable;
+
     /**
      * Send Webhook request.
      *
