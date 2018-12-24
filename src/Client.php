@@ -5,7 +5,6 @@ namespace Laravie\Webhook;
 use Laravie\Codex\Support\HttpClient;
 use Http\Client\Common\HttpMethodsClient;
 use Laravie\Codex\Contracts\Client as ClientContract;
-use Laravie\Codex\Contracts\Request as RequestContract;
 
 class Client implements ClientContract
 {
@@ -31,11 +30,11 @@ class Client implements ClientContract
     /**
      * Handle uses using via.
      *
-     * @param  \Laravie\Webhook\Request  $request
+     * @param  \Laravie\Webhook\Contracts\Request  $request
      *
-     * @return \Laravie\Webhook\Request
+     * @return \Laravie\Webhook\Contracts\Request
      */
-    public function via(RequestContract $request): RequestContract
+    public function via(Contracts\Request $request): Contracts\Request
     {
         $request->setClient($this);
 

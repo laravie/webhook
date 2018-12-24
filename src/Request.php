@@ -6,11 +6,10 @@ use Laravie\Codex\Endpoint;
 use Laravie\Codex\Response;
 use Psr\Http\Message\ResponseInterface;
 use Laravie\Codex\Contracts\Client as ClientContract;
-use Laravie\Codex\Contracts\Request as RequestContract;
 use Laravie\Codex\Contracts\Endpoint as EndpointContract;
 use Laravie\Codex\Contracts\Response as ResponseContract;
 
-abstract class Request implements RequestContract
+abstract class Request implements Contracts\Request
 {
     /**
      * The Codex client.
