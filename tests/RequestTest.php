@@ -2,9 +2,9 @@
 
 namespace Laravie\Webhook\Tests;
 
-use Laravie\Codex\Contracts\Endpoint;
 use Laravie\Webhook\Request;
 use PHPUnit\Framework\TestCase;
+use Laravie\Codex\Contracts\Endpoint;
 
 class RequestTest extends TestCase
 {
