@@ -4,7 +4,6 @@ namespace Laravie\Webhook;
 
 use Laravie\Codex\Endpoint;
 use Laravie\Codex\Response;
-use Laravie\Codex\Support\Responsable;
 use Psr\Http\Message\ResponseInterface;
 use Laravie\Codex\Contracts\Client as ClientContract;
 use Laravie\Codex\Contracts\Request as RequestContract;
