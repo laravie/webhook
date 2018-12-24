@@ -38,7 +38,9 @@ class ClientTest extends TestCase
         $request = new class() extends Request {
             public function ping()
             {
-                return $this->send('https://acme.laravie/webhook', [], ['foo' => 'bar']);
+                return $this->send(
+                    'https://acme.laravie/webhook', $this->mergeWebhookHeaders([]), $this->mergeWebhookBody(['foo' => 'bar'])
+                );
             }
         };
 
