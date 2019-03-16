@@ -105,7 +105,7 @@ abstract class Request implements Contracts\Request
      */
     final protected function mergeWebhookHeaders(array $headers = []): array
     {
-        return array_merge($this->getWebhookHeaders(), $headers);
+        return \array_merge($this->getWebhookHeaders(), $headers);
     }
 
     /**
@@ -117,6 +117,6 @@ abstract class Request implements Contracts\Request
      */
     final protected function mergeWebhookBody(array $body = []): array
     {
-        return array_merge($this->getWebhookBody(), $body);
+        return \array_merge($this->getWebhookBody(), $body);
     }
 }

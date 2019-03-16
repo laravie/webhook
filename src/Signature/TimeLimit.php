@@ -53,7 +53,7 @@ class TimeLimit implements Signature
         $timestamp = (string) $this->timestamp;
 
         $payload = "{$timestamp}.{$content}";
-        $signature = hash_hmac($this->hasher, $payload, $this->secret);
+        $signature = \hash_hmac($this->hasher, $payload, $this->secret);
 
         return "t={$timestamp},v1={$signature}";
     }
