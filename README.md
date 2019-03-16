@@ -9,7 +9,7 @@ To install through composer, simply put the following in your `composer.json` fi
 {
     "require": {
         "laravie/webhook": "~1.0",
-        "php-http/curl-client": "^1.4"
+        "php-http/curl-client": "^1.7 || ^2.0"
     }
 }
 ```
