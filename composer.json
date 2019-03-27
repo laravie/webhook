@@ -17,19 +17,19 @@
     },
     "require": {
         "php": ">=7.1",
-        "laravie/codex": "^4.0.1"
+        "laravie/codex-common": "^1.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.1",
-        "php-http/curl-client": "^1.1 || ^2.0",
-        "phpunit/phpunit": "^7.5"
+        "php-http/curl-client": "^2.0",
+        "phpunit/phpunit": "^7.5 || ^8.0"
     },
     "config": {
         "sort-packages": true
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "2.0-dev"
         }
     },
     "minimum-stability": "dev"

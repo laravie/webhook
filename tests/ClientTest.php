@@ -27,7 +27,7 @@ class ClientTest extends TestCase
         $this->assertSame('application/xml', $stub->getContentType());
     }
 
-        /** @test */
+    /** @test */
     public function it_can_send_api_request_on_version_one()
     {
         $faker = Faker::create()
