@@ -9,7 +9,7 @@ use Laravie\Codex\Contracts\Client as ClientContract;
 use Laravie\Codex\Contracts\Endpoint as EndpointContract;
 use Laravie\Codex\Contracts\Response as ResponseContract;
 
-abstract class Request implements Contracts\Request
+abstract class Request implements \Laravie\Codex\Contracts\Request
 {
     /**
      * The Codex client.
