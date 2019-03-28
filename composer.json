@@ -17,12 +17,12 @@
     },
     "require": {
         "php": ">=7.1",
-        "laravie/codex": "^4.0.1"
+        "laravie/codex": "^4.0.1 || ^5.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.1",
         "php-http/curl-client": "^1.1 || ^2.0",
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^7.5 || ^8.0"
     },
     "config": {
         "sort-packages": true
