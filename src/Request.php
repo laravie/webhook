@@ -9,15 +9,8 @@ use Laravie\Codex\Contracts\Client as ClientContract;
 use Laravie\Codex\Contracts\Endpoint as EndpointContract;
 use Laravie\Codex\Contracts\Response as ResponseContract;
 
-abstract class Request implements \Laravie\Codex\Contracts\Request
+abstract class Request extends \Laravie\Codex\Common\Request
 {
-    /**
-     * The Codex client.
-     *
-     * @var \Laravie\Codex\Contracts\Client
-     */
-    protected $client;
-
     /**
      * Create Endpoint instance.
      *
@@ -30,20 +23,6 @@ abstract class Request implements \Laravie\Codex\Contracts\Request
     public static function to(string $uri, $path = [], array $query = []): EndpointContract
     {
         return new Endpoint($uri, $path, $query);
-    }
-
-    /**
-     * Set Codex Client.
-     *
-     * @param  \Laravie\Codex\Contracts\Client  $client
-     *
-     * @return $this
-     */
-    final public function setClient(ClientContract $client): self
-    {
-        $this->client = $client;
-
-        return $this;
     }
 
     /**
