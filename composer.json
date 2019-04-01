@@ -24,6 +24,9 @@
         "php-http/curl-client": "^2.0",
         "phpunit/phpunit": "^7.5 || ^8.0"
     },
+    "suggest": {
+        "laravie/codex-security": "Allow to create webhook signature (^1.0)",
+    },
     "config": {
         "sort-packages": true
     },
