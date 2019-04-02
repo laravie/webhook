@@ -2,29 +2,13 @@
 
 namespace Laravie\Webhook;
 
-use Laravie\Codex\Common\Endpoint;
 use Laravie\Codex\Common\Response;
 use Psr\Http\Message\ResponseInterface;
-use Laravie\Codex\Contracts\Client as ClientContract;
 use Laravie\Codex\Contracts\Endpoint as EndpointContract;
 use Laravie\Codex\Contracts\Response as ResponseContract;
 
 abstract class Request extends \Laravie\Codex\Common\Request
 {
-    /**
-     * Create Endpoint instance.
-     *
-     * @param  string $uri
-     * @param  string|array  $path
-     * @param  array  $query
-     *
-     * @return \Laravie\Codex\Contracts\Endpoint
-     */
-    public static function to(string $uri, $path = [], array $query = []): EndpointContract
-    {
-        return new Endpoint($uri, $path, $query);
-    }
-
     /**
      * Send Webhook request.
      *
