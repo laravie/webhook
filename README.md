@@ -15,8 +15,8 @@ To install through composer, simply put the following in your `composer.json` fi
 ```json
 {
     "require": {
-        "laravie/webhook": "~1.0",
-        "php-http/curl-client": "^1.7 || ^2.0"
+        "laravie/webhook": "^2.0",
+        "php-http/curl-client": "^2.0"
     }
 }
 ```
@@ -27,7 +27,7 @@ And then run `composer install` from the terminal.
 
 Above installation can also be simplify by using the following command:
 
-    composer require "laravie/webhook=~1.0"
+    composer require "php-http/curl-client" "laravie/webhook=^2.0"
 
 ### HTTP Adapter
 
