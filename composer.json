@@ -17,7 +17,7 @@
     },
     "require": {
         "php": ">=7.1",
-        "laravie/codex-common": "^1.0"
+        "laravie/codex-common": "^1.1"
     },
     "require-dev": {
         "mockery/mockery": "^1.2",
