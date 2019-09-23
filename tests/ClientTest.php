@@ -28,6 +28,31 @@ class ClientTest extends TestCase
     }
 
     /** @test */
+    public function it_can_send_api_request_via_lambda_class()
+    {
+        $faker = Faker::create()
+                    ->sendJson('POST', [], ['foo' => 'bar'])
+                    ->expectEndpointIs('https://acme.laravie/webhook')
+                    ->shouldResponseWith(200, 'OK');
+
+        $request = new class() extends Request {
+            public function ping()
+            {
+                return $this;
+            }
+        };
+
+        $client = new Client($faker->http());
+
+        $response = $client->via($request)->send(
+            'https://acme.laravie/webhook', [], ['foo' => 'bar']
+        );
+
+        $this->assertSame(200, $response->getStatusCode());
+        $this->assertSame('OK', $response->getBody());
+    }
+
+    /** @test */
     public function it_can_send_api_request_on_version_one()
     {
         $faker = Faker::create()
