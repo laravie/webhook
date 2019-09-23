@@ -18,7 +18,7 @@ abstract class Request extends \Laravie\Codex\Common\Request
      *
      * @return \Laravie\Codex\Contracts\Response
      */
-    protected function send($url, array $headers = [], $body = []): ResponseContract
+    public function send($url, array $headers = [], $body = []): ResponseContract
     {
         $endpoint = $url instanceof EndpointContract ? $url : static::to($url);
 
