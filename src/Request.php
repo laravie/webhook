@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Laravie\Codex\Contracts\Endpoint as EndpointContract;
 use Laravie\Codex\Contracts\Response as ResponseContract;
 
-abstract class Request extends \Laravie\Codex\Common\Request
+class Request extends \Laravie\Codex\Common\Request
 {
     /**
      * Send Webhook request.

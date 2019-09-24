@@ -28,23 +28,16 @@ class ClientTest extends TestCase
     }
 
     /** @test */
-    public function it_can_send_api_request_via_lambda_class()
+    public function it_can_send_basic_api_request()
     {
         $faker = Faker::create()
                     ->sendJson('POST', [], ['foo' => 'bar'])
                     ->expectEndpointIs('https://acme.laravie/webhook')
                     ->shouldResponseWith(200, 'OK');
 
-        $request = new class() extends Request {
-            public function ping()
-            {
-                return $this;
-            }
-        };
-
         $client = new Client($faker->http());
 
-        $response = $client->via($request)->send(
+        $response = $client->via(new Request())->send(
             'https://acme.laravie/webhook', [], ['foo' => 'bar']
         );
 
