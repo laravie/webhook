@@ -13,10 +13,7 @@ class Request extends \Laravie\Codex\Common\Request
      * Send Webhook request.
      *
      * @param  \Laravie\Codex\Contracts\Endpoint|string  $url
-     * @param  array  $headers
      * @param  \Psr\Http\Message\StreamInterface|\Laravie\Codex\Payload|array|null  $body
-     *
-     * @return \Laravie\Codex\Contracts\Response
      */
     public function send($url, array $headers = [], $body = []): ResponseContract
     {
@@ -29,10 +26,6 @@ class Request extends \Laravie\Codex\Common\Request
 
     /**
      * Resolve the responder class.
-     *
-     * @param  \Psr\Http\Message\ResponseInterface  $message
-     *
-     * @return \Laravie\Codex\Contracts\Response
      */
     protected function responseWith(ResponseInterface $message): ResponseContract
     {
@@ -41,8 +34,6 @@ class Request extends \Laravie\Codex\Common\Request
 
     /**
      * Get API Header.
-     *
-     * @return array
      */
     protected function getWebhookHeaders(): array
     {
@@ -51,8 +42,6 @@ class Request extends \Laravie\Codex\Common\Request
 
     /**
      * Get API Body.
-     *
-     * @return array
      */
     protected function getWebhookBody(): array
     {
@@ -61,10 +50,6 @@ class Request extends \Laravie\Codex\Common\Request
 
     /**
      * Merge API Headers.
-     *
-     * @param  array  $headers
-     *
-     * @return array
      */
     final protected function mergeWebhookHeaders(array $headers = []): array
     {
@@ -75,8 +60,6 @@ class Request extends \Laravie\Codex\Common\Request
      * Merge API Body.
      *
      * @param  array  $headers
-     *
-     * @return array
      */
     final protected function mergeWebhookBody(array $body = []): array
     {

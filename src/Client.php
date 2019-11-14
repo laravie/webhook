@@ -19,8 +19,6 @@ class Client implements \Laravie\Codex\Contracts\Client
 
     /**
      * Construct a new client.
-     *
-     * @param \Http\Client\Common\HttpMethodsClient  $http
      */
     public function __construct(HttpMethodsClient $http)
     {
@@ -29,10 +27,6 @@ class Client implements \Laravie\Codex\Contracts\Client
 
     /**
      * Handle uses using via.
-     *
-     * @param  \Laravie\Codex\Contracts\Request  $request
-     *
-     * @return \Laravie\Codex\Contracts\Request
      */
     public function via(RequestContract $request): RequestContract
     {
@@ -43,8 +37,6 @@ class Client implements \Laravie\Codex\Contracts\Client
 
     /**
      * Set Content-Type value for webhook request.
-     *
-     * @param  string  $contentType
      *
      * @return $this
      */
@@ -57,8 +49,6 @@ class Client implements \Laravie\Codex\Contracts\Client
 
     /**
      * Get Content-Type value for webhook request.
-     *
-     * @return string
      */
     public function getContentType(): string
     {
@@ -67,10 +57,6 @@ class Client implements \Laravie\Codex\Contracts\Client
 
     /**
      * Prepare request headers.
-     *
-     * @param  array  $headers
-     *
-     * @return array
      */
     protected function prepareRequestHeaders(array $headers = []): array
     {
