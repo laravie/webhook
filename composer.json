@@ -21,8 +21,8 @@
     },
     "require-dev": {
         "mockery/mockery": "^1.2",
-        "php-http/curl-client": "^2.0",
-        "phpunit/phpunit": "^7.5 || ^8.0"
+        "phpunit/phpunit": "^7.5 || ^8.0",
+        "symfony/http-client": "^4.3"
     },
     "suggest": {
         "laravie/codex-security": "Allow to create webhook signature (^1.0)"
